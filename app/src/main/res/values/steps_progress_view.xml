@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+
+    <declare-styleable name="StepProgressView">
+        <attr name="currentStep" format="integer" />
+        <attr name="totalSteps" format="integer"/>
+        <attr name="stepActiveBackground" format="reference"/>
+        <attr name="stepInactiveBackground" format="reference"/>
+        <attr name="stepCurrentBackground" format="reference"/>
+    </declare-styleable>
+
+</resources>

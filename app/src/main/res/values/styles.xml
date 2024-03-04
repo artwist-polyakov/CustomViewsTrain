@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<resources>
+
+
+
+    <!-- Register Steps -->
+    <style name="StepActive">
+        <item name="android:minHeight">20dp</item>
+        <item name="android:minWidth">35dp</item>
+        <item name="android:textAlignment">4</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/textview_border_active</item>
+    </style>
+
+    <style name="StepInactive">
+        <item name="android:minHeight">20dp</item>
+        <item name="android:minWidth">35dp</item>
+        <item name="android:textAlignment">4</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/textview_border_inactive</item>
+    </style>
+
+    <style name="StepCurrent">
+        <item name="android:minHeight">20dp</item>
+        <item name="android:minWidth">35dp</item>
+        <item name="android:textAlignment">4</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/textview_border_current</item>
+    </style>
+
+</resources>
