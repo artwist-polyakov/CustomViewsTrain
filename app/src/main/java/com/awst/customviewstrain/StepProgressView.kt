@@ -84,7 +84,7 @@ class StepProgressView @JvmOverloads constructor(
         }
     }
 
-    fun setCurrentStep(step: Int) {
+    private fun setCurrentStep(step: Int) {
         if (step < 0 || step > totalSteps) {
             throw IllegalArgumentException("Step must be between 0 and $totalSteps")
         }
@@ -94,24 +94,9 @@ class StepProgressView @JvmOverloads constructor(
 
     private fun processView(view: TextView, i: Int) {
         when (i) {
-            in 0 until currentStep -> {
-                view.setBackgroundResource(stepActiveStyle)
-                Log.d(
-                    "StepProgressView",
-                    "Applying StepActive to step $i"
-                )
-            }
-            currentStep -> {
-            view.setBackgroundResource(stepCurrentStyle)
-            Log.d(
-                "StepProgressView",
-                "Applying StepCurrent to step $i"
-            )
-        }
-            else -> {
-                view.setBackgroundResource(stepInactiveStyle)
-                Log.d("StepProgressView", "Applying StepInactive to step $i")
-            }
+            in 0 until currentStep -> view.setBackgroundResource(stepActiveStyle)
+            currentStep -> view.setBackgroundResource(stepCurrentStyle)
+            else -> view.setBackgroundResource(stepInactiveStyle)
         }
     }
 
@@ -122,5 +107,18 @@ class StepProgressView @JvmOverloads constructor(
         }
         return 0
 
+    }
+
+    fun increaseCurrentStep() {
+        if (currentStep < totalSteps-1) {
+            currentStep++
+            updateSteps()
+        }
+    }
+    fun decreaseCurrentStep() {
+        if (currentStep > 0) {
+            currentStep--
+            updateSteps()
+        }
     }
 }
