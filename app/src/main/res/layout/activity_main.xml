@@ -11,7 +11,6 @@
         android:id="@+id/stepProgressView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:currentStep="3"
         app:totalSteps="6"
         app:stepActiveBackground="@drawable/textview_border_active"
         app:stepInactiveBackground="@drawable/textview_border_inactive"

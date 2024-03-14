@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CodeConfirmationView">
+        <attr name="codeLength" format="integer" />
+        <attr name="symbolWidth" format="dimension" />
+        <attr name="symbolHeight" format="dimension" />
+        <attr name="symbolsSpacing" format="dimension" />
+    </declare-styleable>
+
+</resources>
