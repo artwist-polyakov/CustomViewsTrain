@@ -7,37 +7,49 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.awst.customviewstrain.StepProgressView
-        android:id="@+id/stepProgressView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:totalSteps="6"
-        app:stepActiveBackground="@drawable/textview_border_active"
-        app:stepInactiveBackground="@drawable/textview_border_inactive"
-        app:stepCurrentBackground="@drawable/textview_border_current"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+<!--    <com.awst.customviewstrain.StepProgressView-->
+<!--        android:id="@+id/stepProgressView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:totalSteps="6"-->
+<!--        app:stepActiveBackground="@drawable/textview_border_active"-->
+<!--        app:stepInactiveBackground="@drawable/textview_border_inactive"-->
+<!--        app:stepCurrentBackground="@drawable/textview_border_current"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"/>-->
 
-    <TextView
-android:id="@+id/textView"
-        style="@style/StepActive"
+    <com.awst.customviewstrain.CodeConfirmationView
+        android:id="@+id/codeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        app:symbolHeight="50dp"
+        app:symbolWidth="50dp"
+        app:symbolsSpacing="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/invisible_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:inputType="number"
+        android:textIsSelectable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        tools:ignore="Invisible"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+
+<!--    <Button-->
+<!--        android:id="@+id/button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

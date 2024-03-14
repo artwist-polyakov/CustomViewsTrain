@@ -79,6 +79,10 @@ class CodeConfirmationView @JvmOverloads constructor(
         }
     }
 
+    fun setCode(code: String) {
+        enteredCode = code
+    }
+
     private fun updateState() {
         val codeLengthChanged = codeLength != symbolSubviews.count()
         if (codeLengthChanged) {
