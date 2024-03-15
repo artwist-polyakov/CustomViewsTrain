@@ -1,8 +1,10 @@
 package com.awst.customviewstrain
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -17,7 +19,7 @@ class CodeConfirmationView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     @AttrRes defStyleAttr: Int = 0,
     @StyleRes defStyleRes: Int = 0,
-) : LinearLayout(context, attrs, defStyleAttr) {
+) : LinearLayout(context, attrs, defStyleAttr), View.OnKeyListener {
     private var codeLength = 4
     private var style: Style
     private var enteredCode: String = ""
@@ -64,7 +66,11 @@ class CodeConfirmationView @JvmOverloads constructor(
                     ),
                     symbolViewStyle = SymbolView.Style(
                         width = symbolWidth,
-                        height = symbolHeight
+                        height = symbolHeight,
+                        backgroundColor = Color.WHITE, // Например, белый фон
+                        textColor = Color.BLACK, // Чёрный текст
+                        borderWidth = 2f,
+                        borderColor = Color.BLACK
                     )
                 )
             } finally {
@@ -73,6 +79,7 @@ class CodeConfirmationView @JvmOverloads constructor(
         }
         isFocusable = true
         isFocusableInTouchMode = true
+        setOnKeyListener(this)
         updateState()
 
         if (isInEditMode) {
@@ -81,6 +88,23 @@ class CodeConfirmationView @JvmOverloads constructor(
                 enteredCode += 0.toString()
             }
         }
+    }
+
+    override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
+        if (event.action == KeyEvent.ACTION_DOWN) {
+            val char = event.unicodeChar.toChar()
+            if (char.isDigit()) {
+                if (enteredCode.length < codeLength) {
+                    enteredCode += char
+                    return true // указываем, что мы обработали событие
+                }
+            } else if (keyCode == KeyEvent.KEYCODE_DEL &&
+                enteredCode.isNotEmpty()) {
+                enteredCode = enteredCode.dropLast(1)
+                return true // обработали событие удаления
+            }
+        }
+        return false // не обрабатываем событие
     }
 
     override fun onAttachedToWindow() {
@@ -126,9 +150,16 @@ class CodeConfirmationView @JvmOverloads constructor(
 
     private fun setupSymbolSubviews() {
         removeAllViews()
-
+        val symbolStyle = SymbolView.Style(
+            width = style.symbolViewStyle.width,
+            height = style.symbolViewStyle.height,
+            backgroundColor = Color.WHITE, // Например, белый фон
+            textColor = Color.BLACK, // Чёрный текст
+            borderWidth = 2f,
+            borderColor = Color.BLACK // Чёрной границы
+        )
         for (i in 0 until codeLength) {
-            val symbolView = SymbolView(context, style.symbolViewStyle)
+            val symbolView = SymbolView(context, symbolStyle)
             addView(symbolView)
 
             if (i < codeLength.dec()) {

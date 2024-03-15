@@ -26,16 +26,11 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-//        val button = findViewById<Button>(R.id.button)
-//        button.setOnClickListener {
-//            val stepProgressView = findViewById<StepProgressView>(R.id.stepProgressView)
-//            stepProgressView.increaseCurrentStep()
-//        }
-
         val codeConfirmationView =
             findViewById<CodeConfirmationView>(R.id.codeView)
 
         codeConfirmationView.setOnClickListener {
+            Log.d("MainActivity", "CodeConfirmationView clicked")
             codeConfirmationView.startEnterCode()
         }
 

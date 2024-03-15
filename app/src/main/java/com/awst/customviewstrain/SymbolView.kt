@@ -42,20 +42,23 @@ class SymbolView(context: Context, style: Style) : View(context) {
 
         backgroundPaint = Paint().apply {
             this.style = Paint.Style.FILL
-            // fetch other related attrs from 'style' param...
+            color = style.backgroundColor
+
         }
 
         borderPaint = Paint().apply {
-            this.isAntiAlias = true
+//            this.isAntiAlias = true
             this.style = Paint.Style.STROKE
-            // fetch other related attrs from 'style' param...
+            strokeJoin = Paint.Join.ROUND
+            strokeWidth = style.borderWidth // Ширина границы из настроек стиля
+            color = style.borderColor // Цвет границы из настроек стиля
         }
 
         textPaint = Paint().apply {
-            this.isAntiAlias = true
+//            this.isAntiAlias = true
             this.textSize = textSizePx.toFloat()
             this.textAlign = Paint.Align.CENTER
-            // fetch other related attrs from 'style' param...
+            color = style.textColor
         }
     }
 
@@ -108,6 +111,9 @@ class SymbolView(context: Context, style: Style) : View(context) {
     data class Style(
         @Px val width: Int,
         @Px val height: Int,
-        // Other style-related attrs like color, corner radius, etc.
+        val backgroundColor: Int, // Цвет фона SymbolView
+        val textColor: Int,       // Цвет текста (символа)
+        val borderWidth: Float,
+        val borderColor: Int
     )
 }
