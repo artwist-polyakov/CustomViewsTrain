@@ -57,6 +57,10 @@ class CodeConfirmationView @JvmOverloads constructor(
                     R.styleable.CodeConfirmationView_symbolHeight,
                     DEFAULT_SYMBOL_HEIGHT
                 )
+                val textSizePx = getDimension(R.styleable.CodeConfirmationView_symbolTextSize,
+                        context.resources.getDimension(R.dimen.symbol_view_text_size))
+                val textColor = getColor(R.styleable.CodeConfirmationView_symbolTextColor,
+                        context.resources.getColor(R.color.symbol_view_text_color))
                 style = Style(
                     codeLength = codeLength,
                     symbolsSpacing =
@@ -68,7 +72,7 @@ class CodeConfirmationView @JvmOverloads constructor(
                         width = symbolWidth,
                         height = symbolHeight,
                         backgroundColor = Color.WHITE, // Например, белый фон
-                        textColor = Color.BLACK, // Чёрный текст
+                        textColor = textColor, // Чёрный текст
                         borderWidth = 2f,
                         borderColor = Color.BLACK
                     )
@@ -112,6 +116,9 @@ class CodeConfirmationView @JvmOverloads constructor(
 
     }
 
+    fun getCurrentCode(): String {
+        return enteredCode
+    }
 
     fun setCode(code: String) {
         enteredCode = code

@@ -55,10 +55,12 @@ class SymbolView(context: Context, style: Style) : View(context) {
         }
 
         textPaint = Paint().apply {
-//            this.isAntiAlias = true
-            this.textSize = textSizePx.toFloat()
+            this.isAntiAlias = true
+            this.textSize =
+                context.resources.getDimension(R.dimen.symbol_view_text_size) // размер из
             this.textAlign = Paint.Align.CENTER
-            color = style.textColor
+            this.color =
+                context.resources.getColor(R.color.symbol_view_text_color)  // цвет из ресурсо
         }
     }
 

@@ -5,4 +5,5 @@
     <color name="green">#008000</color>
     <color name="red">#FF0000</color>
     <color name="blue">#0000FF</color>
+    <color name="symbol_view_text_color">#FF0AEE</color>
 </resources>

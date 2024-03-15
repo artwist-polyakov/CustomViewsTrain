@@ -5,7 +5,9 @@
         <attr name="codeLength" format="integer" />
         <attr name="symbolWidth" format="dimension" />
         <attr name="symbolHeight" format="dimension" />
+        <attr name="symbolTextColor" format="color"/>
         <attr name="symbolsSpacing" format="dimension" />
+        <attr name="symbolTextSize" format="dimension"/>
     </declare-styleable>
 
 </resources>
