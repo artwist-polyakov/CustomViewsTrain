@@ -34,34 +34,10 @@ class MainActivity : AppCompatActivity() {
 
         val codeConfirmationView =
             findViewById<CodeConfirmationView>(R.id.codeView)
-        codeConfirmationView.setBackgroundColor(Color.TRANSPARENT)
-        val invisibleEditText = findViewById<EditText>(R.id.invisible_edit_text)
+
         codeConfirmationView.setOnClickListener {
-
-            Log.d("MainActivity", "codeConfirmationView.setOnClickListener")
-            // Запросите фокус на невидимом EditText
-            invisibleEditText.requestFocus()
-            // Откройте клавиатуру
-            val imm = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as
-                    InputMethodManager
-            imm.hideSoftInputFromWindow(invisibleEditText.windowToken, 0)
-            invisibleEditText.postDelayed({
-                imm.showSoftInput(invisibleEditText, 0)
-            }, 100)
+            codeConfirmationView.startEnterCode()
         }
-        invisibleEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, after: Int, p3: Int) { }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before:
-            Int, count: Int) {
-                // Установите новое значение в codeConfirmationView
-                s?.let {
-                    codeConfirmationView.setCode( it.toString())
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) { }
-        })
 
 
     }

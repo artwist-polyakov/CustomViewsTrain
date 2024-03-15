@@ -31,17 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/invisible_edit_text"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        android:inputType="number"
-        android:textIsSelectable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        tools:ignore="Invisible"/>
-
 
 <!--    <Button-->
 <!--        android:id="@+id/button"-->

@@ -2,7 +2,10 @@ package com.awst.customviewstrain
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
+import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.Space
 import androidx.annotation.AttrRes
@@ -68,7 +71,8 @@ class CodeConfirmationView @JvmOverloads constructor(
                 recycle()
             }
         }
-
+        isFocusable = true
+        isFocusableInTouchMode = true
         updateState()
 
         if (isInEditMode) {
@@ -79,8 +83,28 @@ class CodeConfirmationView @JvmOverloads constructor(
         }
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+
+    }
+
+
     fun setCode(code: String) {
         enteredCode = code
+    }
+
+    fun startEnterCode() {
+        Log.d("MainActivity", "showKeyboard")
+        requestFocus()
+        postDelayed({
+            showKeyboard()
+        }, 1000)
+    }
+
+    fun stopEnterCode() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
     private fun updateState() {
@@ -126,6 +150,13 @@ class CodeConfirmationView @JvmOverloads constructor(
         val symbolsSpacing: Int
         // You might want to add other style-related properties here
     )
+
+    internal fun View.showKeyboard() {
+        Log.d("MainActivity", "showKeyboard")
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        imm.showSoftInput(this, 0)
+    }
 
     companion object {
         internal const val DEFAULT_CODE_LENGTH = 4
