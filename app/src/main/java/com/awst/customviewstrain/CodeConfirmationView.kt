@@ -72,7 +72,7 @@ class CodeConfirmationView @JvmOverloads constructor(
                     symbolViewStyle = SymbolView.Style(
                         width = symbolWidth,
                         height = symbolHeight,
-                        backgroundColor = Color.GRAY, // Например, белый фон
+                        textSize = textSizePx,
                         textColor = textColor, // Чёрный текст
                         borderColor = Color.BLACK
                     )
@@ -169,7 +169,6 @@ class CodeConfirmationView @JvmOverloads constructor(
             textSize = style.symbolViewStyle.textSize,
             width = style.symbolViewStyle.width,
             height = style.symbolViewStyle.height,
-            backgroundColor = Color.GRAY, // Например, белый фон
             textColor = Color.BLACK, // Чёрный текст
             borderColor = Color.BLACK // Чёрной границы
         )

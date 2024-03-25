@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         app:symbolHeight="50dp"
         app:symbolWidth="50dp"
-        app:symbolsSpacing="20dp"
+        app:symbolsSpacing="0dp"
         app:symbolTextSize="20sp"
 
         app:layout_constraintBottom_toBottomOf="parent"

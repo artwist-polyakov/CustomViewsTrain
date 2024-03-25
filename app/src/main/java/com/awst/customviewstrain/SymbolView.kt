@@ -2,6 +2,7 @@ package com.awst.customviewstrain
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
@@ -71,10 +72,10 @@ class SymbolView(context: Context, style: Style) : View(context) {
 
     private fun calculateTextSize(symbol: Char?): Size {
         return symbol?.let {
-            val textBounds = Rect()
+            val textBounds = Rect(desiredW, desiredH, desiredW, desiredH)
             textPaint.getTextBounds(it.toString(), 0, 1, textBounds)
             Size(textBounds.width(), textBounds.height())
-        } ?: Size(0, 0)
+        } ?: Size(16, 16)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -104,7 +105,7 @@ class SymbolView(context: Context, style: Style) : View(context) {
     data class Style(
         @Px val width: Int,
         @Px val height: Int,
-        val backgroundColor: Int, // Цвет фона SymbolView
+        val backgroundColor: Int = Color.TRANSPARENT, // Цвет фона SymbolView
         val textColor: Int,       // Цвет текста (символа)
         val borderColor: Int,
         val textSize: Float = 16f,
