@@ -8,6 +8,10 @@
         <attr name="symbolTextColor" format="color"/>
         <attr name="symbolsSpacing" format="dimension" />
         <attr name="symbolTextSize" format="dimension"/>
+        <attr name="borderColor" format="reference"/>
+        <attr name="borderWidth" format="dimension"/>
+        <attr name="backgroundColour" format="reference"/>
+        <attr name="backgroundCornerRadius" format="dimension"/>
     </declare-styleable>
 
 </resources>

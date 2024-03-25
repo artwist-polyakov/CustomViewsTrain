@@ -2,6 +2,7 @@ package com.awst.customviewstrain
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.util.Log
 import android.view.KeyEvent
@@ -62,6 +63,15 @@ class CodeConfirmationView @JvmOverloads constructor(
                         context.resources.getDimension(R.dimen.symbol_view_text_size))
                 val textColor = getColor(R.styleable.CodeConfirmationView_symbolTextColor,
                         context.resources.getColor(R.color.symbol_view_text_color))
+                val dividerColor = getColor(R.styleable.CodeConfirmationView_borderColor,
+                    Color.BLACK)
+                val dividerWidth = getDimensionPixelSize(R.styleable.CodeConfirmationView_borderWidth,
+                    2)
+                val cornerRadius = getDimension(R.styleable.CodeConfirmationView_backgroundCornerRadius,
+                    25f)
+                val backgroundColor = getColor(R.styleable.CodeConfirmationView_backgroundColour,
+                    Color.GRAY)
+
                 style = Style(
                     codeLength = codeLength,
                     symbolsSpacing =
@@ -69,6 +79,9 @@ class CodeConfirmationView @JvmOverloads constructor(
                         R.styleable.CodeConfirmationView_symbolsSpacing,
                         DEFAULT_SYMBOLS_SPACING
                     ),
+                    dividerColor = dividerColor,
+                    dividerWidth = dividerWidth,
+                    cornerRadius = cornerRadius,
                     symbolViewStyle = SymbolView.Style(
                         width = symbolWidth,
                         height = symbolHeight,
@@ -93,6 +106,7 @@ class CodeConfirmationView @JvmOverloads constructor(
                 enteredCode += 0.toString()
             }
         }
+        setupBackground()
     }
 
     override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
@@ -165,7 +179,7 @@ class CodeConfirmationView @JvmOverloads constructor(
 
     private fun setupSymbolSubviews() {
         removeAllViews()
-        var symbolStyle = SymbolView.Style(
+        val symbolStyle = SymbolView.Style(
             textSize = style.symbolViewStyle.textSize,
             width = style.symbolViewStyle.width,
             height = style.symbolViewStyle.height,
@@ -173,24 +187,19 @@ class CodeConfirmationView @JvmOverloads constructor(
             borderColor = Color.BLACK // Чёрной границы
         )
         for (i in 0 until codeLength) {
-            val cornerRadius = if (i == 0 || i == codeLength - 1) style.cornerRadius else 0f
-            if (i == 0) {
-                symbolStyle = symbolStyle.copy(leftCornerRadius = cornerRadius)
-            } else if (i == codeLength-1) {
-                symbolStyle = symbolStyle.copy(rightCornerRadius = cornerRadius)
-            }
             val symbolView = SymbolView(context, symbolStyle)
             addView(symbolView)
 
-            if (i < codeLength.dec()) {
+            if (i < codeLength) {
                 val space = Space(context).apply {
                     layoutParams = ViewGroup.LayoutParams(style.symbolsSpacing, 0)
                 }
                 addView(space)
             }
-            if (i > 0 && i < codeLength) {
-                val divider = Space(context).apply {
-                    layoutParams = ViewGroup.LayoutParams(style.dividerWidth, 0)
+            if ( i < codeLength - 1) {
+                val divider = View(context).apply {
+                    layoutParams = ViewGroup.LayoutParams(style.dividerWidth,
+                        style.symbolViewStyle.height)
                     setBackgroundColor(style.dividerColor)
                 }
                 addView(divider)
@@ -202,13 +211,25 @@ class CodeConfirmationView @JvmOverloads constructor(
         fun onCodeChange(code: String, isComplete: Boolean)
     }
 
+    private fun setupBackground() {
+        val backgroundDrawable = GradientDrawable().apply {
+            setColor(Color.GRAY) // Указываем цвет фона
+            cornerRadius = style.cornerRadius // Устанавливаем радиус скругления
+            // Если нужно разные скругления, используйте метод setCornerRadii
+        }
+        background = backgroundDrawable
+    }
+
     data class Style(
         val codeLength: Int,
         val symbolViewStyle: SymbolView.Style,
         val symbolsSpacing: Int,
         val dividerColor: Int = Color.BLACK,       // цвет разделителя
         val dividerWidth: Int = 2,
-        val cornerRadius: Float = 25f
+        val cornerRadius: Float = 25f,
+        val borderColor: Int = Color.BLACK,
+        val background: Int = Color.GRAY
+
         // You might want to add other style-related properties here
     )
 

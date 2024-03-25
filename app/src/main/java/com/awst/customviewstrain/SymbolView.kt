@@ -29,30 +29,16 @@ class SymbolView(context: Context, style: Style) : View(context) {
 
     private val backgroundRect = RectF()
 
-    private var backgroundPaint: Paint
     private val textPaint: Paint
 
     private var textSize: Size
 
-    private var topLeftCornerRadius = 0f
-    private var topRightCornerRadius = 0f
-    private var bottomRightCornerRadius = 0f
-    private var bottomLeftCornerRadius = 0f
 
     init {
         desiredW = style.width
         desiredH = style.height
-        topLeftCornerRadius = style.leftCornerRadius
-        topRightCornerRadius = style.rightCornerRadius
-        bottomRightCornerRadius = style.rightCornerRadius
-        topLeftCornerRadius = style.leftCornerRadius
         textSize = calculateTextSize(symbol)
 
-        backgroundPaint = Paint().apply {
-            this.style = Paint.Style.FILL
-            color = style.backgroundColor
-
-        }
 
 
         textPaint = Paint().apply {
@@ -86,12 +72,6 @@ class SymbolView(context: Context, style: Style) : View(context) {
 
 
     override fun onDraw(canvas: Canvas) {
-        canvas.drawRoundRect(
-            backgroundRect,
-            cornerRadius,
-            cornerRadius,
-            backgroundPaint
-        )
 
 
         canvas.drawText(
@@ -109,7 +89,5 @@ class SymbolView(context: Context, style: Style) : View(context) {
         val textColor: Int,       // Цвет текста (символа)
         val borderColor: Int,
         val textSize: Float = 16f,
-        val leftCornerRadius: Float = 0f,
-        val rightCornerRadius: Float = 0f
     )
 }
