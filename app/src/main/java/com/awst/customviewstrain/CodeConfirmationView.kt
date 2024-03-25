@@ -142,6 +142,10 @@ class CodeConfirmationView @JvmOverloads constructor(
         imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
+    fun setCallback(callback: ((String) -> Unit)?) {
+        this.callback = callback
+    }
+
     private fun updateState() {
         val codeLengthChanged = codeLength != symbolSubviews.count()
         if (codeLengthChanged) {
