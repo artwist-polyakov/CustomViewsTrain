@@ -29,15 +29,22 @@ class SymbolView(context: Context, style: Style) : View(context) {
     private val backgroundRect = RectF()
 
     private var backgroundPaint: Paint
-    private var borderPaint: Paint
     private val textPaint: Paint
 
     private var textSize: Size
 
+    private var topLeftCornerRadius = 0f
+    private var topRightCornerRadius = 0f
+    private var bottomRightCornerRadius = 0f
+    private var bottomLeftCornerRadius = 0f
+
     init {
         desiredW = style.width
         desiredH = style.height
-
+        topLeftCornerRadius = style.leftCornerRadius
+        topRightCornerRadius = style.rightCornerRadius
+        bottomRightCornerRadius = style.rightCornerRadius
+        topLeftCornerRadius = style.leftCornerRadius
         textSize = calculateTextSize(symbol)
 
         backgroundPaint = Paint().apply {
@@ -46,23 +53,21 @@ class SymbolView(context: Context, style: Style) : View(context) {
 
         }
 
-        borderPaint = Paint().apply {
-//            this.isAntiAlias = true
-            this.style = Paint.Style.STROKE
-            strokeJoin = Paint.Join.ROUND
-            strokeWidth = style.borderWidth // Ширина границы из настроек стиля
-            color = style.borderColor // Цвет границы из настроек стиля
-        }
 
         textPaint = Paint().apply {
             this.isAntiAlias = true
-            this.textSize =
-                context.resources.getDimension(R.dimen.symbol_view_text_size) // размер из
+            this.textSize = style.textSize
             this.textAlign = Paint.Align.CENTER
-            this.color =
-                context.resources.getColor(R.color.symbol_view_text_color)  // цвет из ресурсо
+            this.color = style.textColor
         }
     }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        // Здесь обновляем backgroundRect, чтобы он соответствовал новым размерам view
+        backgroundRect.set(0f, 0f, w.toFloat(), h.toFloat())
+    }
+
 
     private fun calculateTextSize(symbol: Char?): Size {
         return symbol?.let {
@@ -78,14 +83,6 @@ class SymbolView(context: Context, style: Style) : View(context) {
         setMeasuredDimension(w, h)
     }
 
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
-        val borderWidthHalf = borderPaint.strokeWidth / 2
-        backgroundRect.left = borderWidthHalf
-        backgroundRect.top = borderWidthHalf
-        backgroundRect.right = measuredWidth.toFloat() - borderWidthHalf
-        backgroundRect.bottom = measuredHeight.toFloat() - borderWidthHalf
-    }
 
     override fun onDraw(canvas: Canvas) {
         canvas.drawRoundRect(
@@ -95,17 +92,11 @@ class SymbolView(context: Context, style: Style) : View(context) {
             backgroundPaint
         )
 
-        canvas.drawRoundRect(
-            backgroundRect,
-            cornerRadius,
-            cornerRadius,
-            borderPaint
-        )
 
         canvas.drawText(
-            symbol?.toString() ?: "",
-            backgroundRect.width() / 2 + borderPaint.strokeWidth / 2,
-            backgroundRect.height() / 2 + textSize.height / 2 + borderPaint.strokeWidth / 2,
+            symbol?.toString() ?: "_",
+            backgroundRect.width() / 2 ,
+            backgroundRect.height() / 2 + textSize.height / 2,
             textPaint
         )
     }
@@ -115,7 +106,9 @@ class SymbolView(context: Context, style: Style) : View(context) {
         @Px val height: Int,
         val backgroundColor: Int, // Цвет фона SymbolView
         val textColor: Int,       // Цвет текста (символа)
-        val borderWidth: Float,
-        val borderColor: Int
+        val borderColor: Int,
+        val textSize: Float = 16f,
+        val leftCornerRadius: Float = 0f,
+        val rightCornerRadius: Float = 0f
     )
 }

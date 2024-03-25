@@ -72,12 +72,12 @@ class CodeConfirmationView @JvmOverloads constructor(
                     symbolViewStyle = SymbolView.Style(
                         width = symbolWidth,
                         height = symbolHeight,
-                        backgroundColor = Color.WHITE, // Например, белый фон
+                        backgroundColor = Color.GRAY, // Например, белый фон
                         textColor = textColor, // Чёрный текст
-                        borderWidth = 2f,
                         borderColor = Color.BLACK
                     )
                 )
+                updateState()
             } finally {
                 recycle()
             }
@@ -165,15 +165,21 @@ class CodeConfirmationView @JvmOverloads constructor(
 
     private fun setupSymbolSubviews() {
         removeAllViews()
-        val symbolStyle = SymbolView.Style(
+        var symbolStyle = SymbolView.Style(
+            textSize = style.symbolViewStyle.textSize,
             width = style.symbolViewStyle.width,
             height = style.symbolViewStyle.height,
-            backgroundColor = Color.WHITE, // Например, белый фон
+            backgroundColor = Color.GRAY, // Например, белый фон
             textColor = Color.BLACK, // Чёрный текст
-            borderWidth = 2f,
             borderColor = Color.BLACK // Чёрной границы
         )
         for (i in 0 until codeLength) {
+            val cornerRadius = if (i == 0 || i == codeLength - 1) style.cornerRadius else 0f
+            if (i == 0) {
+                symbolStyle = symbolStyle.copy(leftCornerRadius = cornerRadius)
+            } else if (i == codeLength-1) {
+                symbolStyle = symbolStyle.copy(rightCornerRadius = cornerRadius)
+            }
             val symbolView = SymbolView(context, symbolStyle)
             addView(symbolView)
 
@@ -182,6 +188,13 @@ class CodeConfirmationView @JvmOverloads constructor(
                     layoutParams = ViewGroup.LayoutParams(style.symbolsSpacing, 0)
                 }
                 addView(space)
+            }
+            if (i > 0 && i < codeLength) {
+                val divider = Space(context).apply {
+                    layoutParams = ViewGroup.LayoutParams(style.dividerWidth, 0)
+                    setBackgroundColor(style.dividerColor)
+                }
+                addView(divider)
             }
         }
     }
@@ -193,7 +206,10 @@ class CodeConfirmationView @JvmOverloads constructor(
     data class Style(
         val codeLength: Int,
         val symbolViewStyle: SymbolView.Style,
-        val symbolsSpacing: Int
+        val symbolsSpacing: Int,
+        val dividerColor: Int = Color.BLACK,       // цвет разделителя
+        val dividerWidth: Int = 2,
+        val cornerRadius: Float = 25f
         // You might want to add other style-related properties here
     )
 
