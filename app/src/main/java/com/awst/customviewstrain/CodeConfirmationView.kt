@@ -158,9 +158,9 @@ class CodeConfirmationView @JvmOverloads constructor(
     fun startEnterCode() {
         Log.d("MainActivity", "showKeyboard")
         requestFocus()
-        postDelayed({
+        post{
             showKeyboard()
-        }, 1000)
+        }
     }
 
     fun stopEnterCode() {
@@ -253,7 +253,7 @@ class CodeConfirmationView @JvmOverloads constructor(
         Log.d("MainActivity", "showKeyboard")
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as
                 InputMethodManager
-        imm.showSoftInput(this, 0)
+        imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
 
     companion object {
