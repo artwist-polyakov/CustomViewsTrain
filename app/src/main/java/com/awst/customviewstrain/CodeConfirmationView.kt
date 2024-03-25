@@ -59,18 +59,30 @@ class CodeConfirmationView @JvmOverloads constructor(
                     R.styleable.CodeConfirmationView_symbolHeight,
                     DEFAULT_SYMBOL_HEIGHT
                 )
-                val textSizePx = getDimension(R.styleable.CodeConfirmationView_symbolTextSize,
-                        context.resources.getDimension(R.dimen.symbol_view_text_size))
-                val textColor = getColor(R.styleable.CodeConfirmationView_symbolTextColor,
-                        context.resources.getColor(R.color.symbol_view_text_color))
-                val dividerColor = getColor(R.styleable.CodeConfirmationView_borderColor,
-                    Color.BLACK)
-                val dividerWidth = getDimensionPixelSize(R.styleable.CodeConfirmationView_borderWidth,
-                    2)
-                val cornerRadius = getDimension(R.styleable.CodeConfirmationView_backgroundCornerRadius,
-                    25f)
-                val backgroundColor = getColor(R.styleable.CodeConfirmationView_backgroundColour,
-                    Color.GRAY)
+                val textSizePx = getDimension(
+                    R.styleable.CodeConfirmationView_symbolTextSize,
+                    context.resources.getDimension(R.dimen.symbol_view_text_size)
+                )
+                val textColor = getColor(
+                    R.styleable.CodeConfirmationView_symbolTextColor,
+                    context.resources.getColor(R.color.symbol_view_text_color)
+                )
+                val dividerColor = getColor(
+                    R.styleable.CodeConfirmationView_borderColor,
+                    Color.BLACK
+                )
+                val dividerWidth = getDimensionPixelSize(
+                    R.styleable.CodeConfirmationView_borderWidth,
+                    2
+                )
+                val cornerRadius = getDimension(
+                    R.styleable.CodeConfirmationView_backgroundCornerRadius,
+                    25f
+                )
+                val backgroundColor = getColor(
+                    R.styleable.CodeConfirmationView_backgroundColour,
+                    Color.GRAY
+                )
 
                 style = Style(
                     codeLength = codeLength,
@@ -121,7 +133,8 @@ class CodeConfirmationView @JvmOverloads constructor(
                     return true // указываем, что мы обработали событие
                 }
             } else if (keyCode == KeyEvent.KEYCODE_DEL &&
-                enteredCode.isNotEmpty()) {
+                enteredCode.isNotEmpty()
+            ) {
                 enteredCode = enteredCode.dropLast(1)
                 return true // обработали событие удаления
             }
@@ -196,10 +209,12 @@ class CodeConfirmationView @JvmOverloads constructor(
                 }
                 addView(space)
             }
-            if ( i < codeLength - 1) {
+            if (i < codeLength - 1) {
                 val divider = View(context).apply {
-                    layoutParams = ViewGroup.LayoutParams(style.dividerWidth,
-                        style.symbolViewStyle.height)
+                    layoutParams = ViewGroup.LayoutParams(
+                        style.dividerWidth,
+                        style.symbolViewStyle.height
+                    )
                     setBackgroundColor(style.dividerColor)
                 }
                 addView(divider)
@@ -220,6 +235,7 @@ class CodeConfirmationView @JvmOverloads constructor(
         background = backgroundDrawable
     }
 
+
     data class Style(
         val codeLength: Int,
         val symbolViewStyle: SymbolView.Style,
@@ -228,8 +244,8 @@ class CodeConfirmationView @JvmOverloads constructor(
         val dividerWidth: Int = 2,
         val cornerRadius: Float = 25f,
         val borderColor: Int = Color.BLACK,
-        val background: Int = Color.GRAY
-
+        val background: Int = Color.GRAY,
+        val symbolFont: String? = null
         // You might want to add other style-related properties here
     )
 

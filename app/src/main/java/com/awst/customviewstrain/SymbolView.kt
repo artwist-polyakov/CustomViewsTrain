@@ -76,7 +76,7 @@ class SymbolView(context: Context, style: Style) : View(context) {
 
         canvas.drawText(
             symbol?.toString() ?: "_",
-            backgroundRect.width() / 2 ,
+            backgroundRect.width() / 2,
             backgroundRect.height() / 2 + textSize.height / 2,
             textPaint
         )

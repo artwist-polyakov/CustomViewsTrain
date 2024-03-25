@@ -12,6 +12,7 @@
         <attr name="borderWidth" format="dimension"/>
         <attr name="backgroundColour" format="reference"/>
         <attr name="backgroundCornerRadius" format="dimension"/>
+        <attr name="symbolFont" format="string"/>
     </declare-styleable>
 
 </resources>
