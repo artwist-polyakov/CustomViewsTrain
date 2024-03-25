@@ -22,6 +22,7 @@ class CodeConfirmationView @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr), View.OnKeyListener {
     private var codeLength = 4
     private var style: Style
+    private var callback: ((String) -> Unit)? = null
     private var enteredCode: String = ""
         set(value) {
             require(value.length <= codeLength) { "enteredCode=$value is longer than $codeLength" }
@@ -100,6 +101,9 @@ class CodeConfirmationView @JvmOverloads constructor(
             if (char.isDigit()) {
                 if (enteredCode.length < codeLength) {
                     enteredCode += char
+                    callback?.let {
+                        it(enteredCode)
+                    }
                     return true // указываем, что мы обработали событие
                 }
             } else if (keyCode == KeyEvent.KEYCODE_DEL &&
