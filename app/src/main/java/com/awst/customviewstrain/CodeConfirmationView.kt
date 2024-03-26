@@ -3,17 +3,23 @@ package com.awst.customviewstrain
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.text.InputType
 import android.util.AttributeSet
 import android.util.Log
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.BaseInputConnection
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.Space
 import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.core.view.children
+
 
 class CodeConfirmationView @JvmOverloads constructor(
     context: Context,
@@ -188,6 +194,7 @@ class CodeConfirmationView @JvmOverloads constructor(
                 view.symbol = enteredCode.getOrNull(index)
             }
         }
+        Log.d("MainActivity", "updateState: enteredCode=$enteredCode, viewCode=$viewCode")
     }
 
     private fun setupSymbolSubviews() {
@@ -255,6 +262,27 @@ class CodeConfirmationView @JvmOverloads constructor(
                 InputMethodManager
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            // При касании CodeConfirmationView показываем клавиатуру
+            requestFocus()
+            showKeyboard()
+        }
+        return super.onTouchEvent(event)
+    }
+
+    override fun onCreateInputConnection(outAttrs: EditorInfo): InputConnection? {
+        outAttrs.actionLabel = null
+        outAttrs.inputType = InputType.TYPE_CLASS_NUMBER
+        outAttrs.imeOptions = EditorInfo.IME_ACTION_DONE
+        return BaseInputConnection(this, false)
+    }
+
+    override fun onCheckIsTextEditor(): Boolean {
+        return true // Указываем, что наша view может вести себя как text editor
+    }
+
 
     companion object {
         internal const val DEFAULT_CODE_LENGTH = 4

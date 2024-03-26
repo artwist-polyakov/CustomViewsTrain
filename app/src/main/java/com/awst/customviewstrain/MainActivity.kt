@@ -29,10 +29,10 @@ class MainActivity : AppCompatActivity() {
         val codeConfirmationView =
             findViewById<CodeConfirmationView>(R.id.codeView)
 
-        codeConfirmationView.setOnClickListener {
-            Log.d("MainActivity", "CodeConfirmationView clicked")
-            codeConfirmationView.startEnterCode()
-        }
+//        codeConfirmationView.setOnClickListener {
+//            Log.d("MainActivity", "CodeConfirmationView clicked")
+//            codeConfirmationView.startEnterCode()
+//        }
 
 
     }

@@ -38,7 +38,8 @@ class SymbolView(context: Context, style: Style) : View(context) {
         desiredW = style.width
         desiredH = style.height
         textSize = calculateTextSize(symbol)
-
+        isClickable = false
+        isFocusable = false
 
 
         textPaint = Paint().apply {
