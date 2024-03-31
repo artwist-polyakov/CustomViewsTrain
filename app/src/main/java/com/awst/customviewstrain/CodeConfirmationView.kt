@@ -100,6 +100,7 @@ class CodeConfirmationView @JvmOverloads constructor(
                     dividerColor = dividerColor,
                     dividerWidth = dividerWidth,
                     cornerRadius = cornerRadius,
+                    background = backgroundColor,
                     symbolViewStyle = SymbolView.Style(
                         width = symbolWidth,
                         height = symbolHeight,
@@ -235,9 +236,8 @@ class CodeConfirmationView @JvmOverloads constructor(
 
     private fun setupBackground() {
         val backgroundDrawable = GradientDrawable().apply {
-            setColor(Color.GRAY) // Указываем цвет фона
+            setColor(style.background) // Указываем цвет фона
             cornerRadius = style.cornerRadius // Устанавливаем радиус скругления
-            // Если нужно разные скругления, используйте метод setCornerRadii
         }
         background = backgroundDrawable
     }
